@@ -25,7 +25,7 @@ async def on_ready():
         time.sleep(0.01)
 
     print('beep boop is it working?')
-    #client.loop.create_task(my_background_task())
+   
     client.loop.create_task(hourly_reminder())
 
 @client.command()
@@ -71,34 +71,33 @@ async def on_message(message):
     ]:
         user = message.author
         await message.channel.send(f'{user.mention} stop saying fuck in a different spelling')
-    #input randomizer here
+    
     elif message.content.lower() == 'hi':
         if rand == 1:
             user = message.author
-            # mention the user in the bot's response
             await message.channel.send(f'Hello, {user.mention}')
+            
         elif rand == 2:
             user = message.author
-            # mention the user in the bot's response
-            await message.channel.send(f'wassup, {user.mention}')
+             await message.channel.send(f'wassup, {user.mention}')
+                
         elif rand == 3:
             user = message.author
-            # mention the user in the bot's response
             await message.channel.send(f'yo, {user.mention}')
 
 
     elif message.content.lower() == 'hello':
         if rand == 1:
             user = message.author
-            # mention the user in the bot's response
+            
             await message.channel.send(f'hi, {user.mention}')
         elif rand == 2:
             user = message.author
-            # mention the user in the bot's response
+            
             await message.channel.send(f'wassup, {user.mention}')
         elif rand == 3:
             user = message.author
-            # mention the user in the bot's response
+            
             await message.channel.send(f'yo, {user.mention}')
 
 
@@ -123,21 +122,21 @@ async def on_message(message):
         await message.reply("what is frick")
 
     elif "@everyone" in message.content:
-        # do something when @everyone is mentioned
+        
         await message.channel.send("why calling everyone?")
 
 
     if message.content.startswith('$time'):
-        # Send a message asking the user to enter their country
+        
         await message.channel.send("Please enter your country(use abbreviation e.g. Us, Ph, Jp):")
 
-        # Wait for the user's response
+        
         def check(msg):
             return msg.author == message.author and msg.channel == message.channel
 
         response = await client.wait_for('message', check=check)
 
-        # Determine the time zone for the user's country
+        
         try:
             country_tz = pytz.country_timezones[response.content.upper()][0]
             user_tz = pytz.timezone(country_tz)
@@ -145,10 +144,10 @@ async def on_message(message):
             await message.channel.send("Invalid country. Please try again.")
             return
 
-        # Get the current time in the user's time zone
+        
         user_time = datetime.now(user_tz).strftime('%H:%M:%S %Z')
 
-        # Send the user's time zone and current time as a message
+        
         await message.channel.send(f"Your time zone is {user_tz.zone} and the current time is {user_time}")
 
     elif "what" in message.content.lower():
@@ -181,7 +180,7 @@ messages_hr =["hourly reminder to drink water!"]
 
 async def hourly_reminder():
     await client.wait_until_ready()
-    channel = client.get_channel(571277843129171970) # replace `channel_id` with the actual channel ID
+    channel = client.get_channel(571277843129171970)
     while not client.is_closed():
         message_hr = random.choice(messages_hr)
         await channel.send(message_hr)
